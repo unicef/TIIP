@@ -21,6 +21,7 @@ class ProjectVersionTests(SetupTests):
     def setUp(self):
         super().setUp()
 
+        self.project = Project.objects.get(id=self.project_id)
         versions = ProjectVersion.objects.filter(project__pk=self.project_id)
         self.assertEqual(len(versions), 2)
         version = versions[0]
@@ -68,6 +69,37 @@ class ProjectVersionTests(SetupTests):
         self.assertEqual(version_2.data, project.data)
         self.assertEqual(version_2.name, project.name)
         self.assertNotEqual(version_1.data, version_2.data)
+
+    def test_project_version_with_gaps(self):
+        """
+        Test that modifying or publishing a project creates a new version with the next available number,
+        even if there are gaps in the version sequence.
+        """
+
+        # There are two versions of the project after setup
+        versions = list(ProjectVersion.objects.filter(project__pk=self.project_id))
+        self.assertEqual(len(versions), 2)
+
+        # Manually create a gap by removing the first version. There is now only one version with version number= 2
+        ProjectVersion.objects.filter(project=self.project, version=1).delete()
+
+        # Publish the project with the updated data so there will be two versions
+        updated_data = copy.deepcopy(self.project_data)
+        updated_data['project']['name'] = 'Updated Project Name'
+        publish_url = reverse("project-publish", kwargs={"project_id": self.project_id,
+                                                        "country_office_id": self.country_office.id})
+        response = self.test_user_client.put(publish_url, updated_data, format="json")
+        self.assertEqual(response.status_code, 200)
+
+        # Ensure the new version is created with the next available version number
+        versions = ProjectVersion.objects.filter(project=self.project).order_by("version")
+        self.assertEqual(len(versions), 2)
+        self.assertEqual(list(versions.values_list("version", flat=True)), [2, 3,])
+
+        # Check the data in the newly created version
+        new_version = versions.get(version=3)
+        self.assertEqual(new_version.name, updated_data['project']['name'])
+        self.assertEqual(new_version.user, self.userprofile)
 
     def test_project_versions_history(self):
         new_data = copy.deepcopy(self.project_data)

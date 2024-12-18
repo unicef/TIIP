@@ -349,11 +349,15 @@ class ProjectVersion(ExtendedModel):
 
     def save(self, *args, **kwargs):
         """
-        Custom save method to auto-increment the version field
+        Custom save method to auto-increment the version field, ignoring any gaps in the versions numbers
         """
-        if not self.id:
-            qs = ProjectVersion.objects.filter(project=self.project)
-            self.version = qs.count() + 1
+        if not self.id:  # Only for new objects
+            max_version = (
+                ProjectVersion.objects.filter(project=self.project)
+                .aggregate(max_version=models.Max("version"))
+                .get("max_version", 0)
+            ) or 0  # Default to 0 for the cases where the project has no versions, typically initiative creation
+            self.version = max_version + 1
         super().save(*args, **kwargs)
 
 

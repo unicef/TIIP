@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<!-- DO NOT EDIT THIS MANUALLY, IT SHOULD BE GENERATED FROM master.html by
+https://templates.mailchimp.com/resources/inline-css/ -->
+
+{% load utils %}
+{% load static %}
+{% load i18n %}
+
+<!doctype html>
+<html style="margin: 0;padding: 0;">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="content-language" content="{{ language }}">
+    <meta name="viewport" content="width=device-width">
+    <title>UNICEF T4D & Innovation Inventory Portal Email Notification</title>
+
+  </head>
+
+
+  <body style="background-color: #F2F2F2;font-family: arial, sans-serif;-webkit-font-smoothing: antialiased;font-size: 14px;line-height: 1.4;margin: 0;padding: 0;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <table border="0" cellpadding="0" cellspacing="0" class="body" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-webkit-border-horizontal-spacing: 0px;-webkit-border-vertical-spacing: 0px;width: 100%;background-color: #F2F2F2;">
+      <tr>
+        <td class="container" style="font-family: arial, sans-serif;font-size: 14px;vertical-align: top;display: block;max-width: 580px;padding: 10px;width: 580px;color: #474747;margin: 0 auto !important;">
+          <div class="content" style="box-sizing: border-box;display: block;margin: 0 auto;max-width: 580px;padding: 20px;">
+
+            <!-- START CENTERED WHITE CONTAINER -->
+            <!-- <span class="preheader">This is preheader text. Some clients will show this text as a preview.</span> -->
+            <table border="0" cellpadding="0" cellspacing="0" class="main" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-webkit-border-horizontal-spacing: 0px;-webkit-border-vertical-spacing: 0px;width: 100%;background: #FFFFFF;">
+              <!-- START MAIN CONTENT AREA -->
+              <tr>
+                <td class="wrapper" style="font-family: arial, sans-serif;font-size: 14px;vertical-align: top;box-sizing: border-box;padding: 0 20px 20px;">
+                  <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-webkit-border-horizontal-spacing: 0px;-webkit-border-vertical-spacing: 0px;width: 100%;">
+                    <tr class="header" style="height: 150px;">
+                      <td style="font-family: arial, sans-serif;font-size: 14px;vertical-align: top;">
+                        <img src="{% site_url %}/static/email/unicef-logo-banner.svg" width="216" height="28" alt="Unicef logo" class="logo-img" style="border: none;-ms-interpolation-mode: bicubic;max-width: 100%;padding-top: 15px;">
+                      </td>
+                      <td class="align-right" style="font-family: arial, sans-serif;font-size: 14px;vertical-align: top;text-align: right;padding-top: 15px;">
+                        <a href="{% site_url %}" class="visit-link nowrap" style="color: #00AEEF;text-decoration: underline;font-size: 12px;white-space: nowrap;">{% trans "Visit website" %}</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" style="font-family: arial, sans-serif;font-size: 16px;vertical-align: top;">
+                        <p style="font-family: arial, sans-serif;font-weight: 400;line-height: 1.4;margin: 0;margin-top: 10px;margin-bottom: 20px;font-size: 16px;">{% trans "Dear" %} INVENT User,</p>
+                        <p style="font-family: arial, sans-serif;font-size: 16px;font-weight: normal;margin: 0;margin-bottom: 20px;padding: 0;">{% blocktrans %}Your INVENT export is ready. You can download the file at the following link:{% endblocktrans %}</p>
+                        <a href="{{link}}" target="_blank" style="color: #00AEEF;text-decoration: underline;font-size: 16px;white-space: nowrap;">{% trans "Your export" %}</a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+            <!-- END MAIN CONTENT AREA -->
+            </table>
+
+            <!-- START FOOTER -->
+            <div class="footer" style="clear: both;margin-top: 10px;text-align: center;width: 100%;">
+              <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-webkit-border-horizontal-spacing: 0px;-webkit-border-vertical-spacing: 0px;width: 100%;">
+                <tr>
+                  <td class="content-block footer-links" style="font-family: arial, sans-serif;font-size: 12px;vertical-align: top;padding-bottom: 10px;padding-top: 10px;color: #9B9B9B;text-align: center;">
+                    <a href="{% site_url %}" style="color: #9B9B9B;text-decoration: underline;font-size: 12px;text-align: center;">{% trans "Go to INVENT" %}</a>
+                    <span style="color: #B9B9B9;font-size: 12px;text-align: center;">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                    <a href="mailto:invent@unicef.org" style="color: #9B9B9B;text-decoration: underline;font-size: 12px;text-align: center;">{% trans "Contact us" %}</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="content-block" style="font-family: arial, sans-serif;font-size: 12px;vertical-align: top;padding-bottom: 10px;padding-top: 10px;color: #9B9B9B;text-align: center;">
+                    <span class="disclaimer" style="color: #9B9B9B;font-size: 11px;text-align: center;">
+                      {% trans "All reasonable precautions have been taken by UNICEF to verify the information contained in this publication. However, the published material is being distributed without warranty of any kind, either expressed or implied. The responsibility for the interpretation and use of the material lies with the reader. In no event shall the UNICEF be liable for damages arising from its use." %}
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <!-- END FOOTER -->
+          
+          <!-- END CENTERED WHITE CONTAINER -->
+          </div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

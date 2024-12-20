@@ -11,6 +11,8 @@ from rest_framework import status
 
 from country.models import Country
 from project.admin import ProjectAdmin, DigitalStrategyAdmin, TechnologyPlatformAdmin, PortfolioAdmin
+from .factories.project_factories import ProjectBuilder
+from project.resources import ProjectResource
 from user.models import UserProfile
 from project.models import Project, DigitalStrategy, TechnologyPlatform, Portfolio, ProjectVersion
 
@@ -243,3 +245,50 @@ class TestAdmin(TestCase):
 
         self.assertEqual(pa.versions(p), 2)
         self.assertEqual(pa.versions_detailed(p)[-16:], 'name was changed')
+
+
+    def test_missing_attributes_does_not_crash_export(self):
+            """
+            Test exporting a known set of projects using the ProjectResource.
+            """
+
+            project1 = ProjectBuilder().published(False).create(name="Project Alpha Alpha")
+
+            draft_data = project1.draft
+
+            # Remove two required attributes from the draft data
+            # Pull this into a helper next time we need it in a test
+            if 'unicef_leading_sector' in draft_data:
+                del draft_data['unicef_leading_sector']
+            if 'unicef_supporting_sectors' in draft_data:
+                del draft_data['unicef_supporting_sectors']
+            project1.draft = draft_data
+            project1.save()
+
+            resource = ProjectResource()
+
+            # Query the projects to export
+            queryset = Project.objects.filter(pk=project1.pk)
+
+            # Export the queryset to CSV
+            dataset = resource.export(queryset)
+            exported_csv = dataset.csv
+
+                # Split CSV into lines for processing
+            csv_lines = exported_csv.strip().split("\n")
+
+            # Extract headers and data rows
+            headers = csv_lines[0].split(",")
+            data_row = csv_lines[1].split(",")
+
+            # Assert that the 'Lead Sector' and 'Supporting Sectors' columns are present
+            self.assertIn('Lead Sector', headers)
+            self.assertIn('Supporting Sectors', headers)
+
+            # Find indices of the relevant columns
+            lead_sector_index = headers.index('Lead Sector')
+            supporting_sectors_index = headers.index('Supporting Sectors')
+
+            # Assert that their values for project1 are empty
+            self.assertEqual(data_row[lead_sector_index], "")
+            self.assertEqual(data_row[supporting_sectors_index], "")

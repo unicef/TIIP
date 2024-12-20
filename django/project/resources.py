@@ -240,12 +240,12 @@ class ProjectResource(resources.ModelResource):  # pragma: no cover
             return None
 
     def dehydrate_unicef_leading_sector(self, project):
-        sector = self.get_data_member(project).get('unicef_leading_sector')
+        sector = self.get_data_member(project).get('unicef_leading_sector', [])
         qs = UNICEFSector.objects.filter(id__in=sector)
         return qs[0].name if qs.count() else None
 
     def dehydrate_unicef_supporting_sectors(self, project):
-        sector = self.get_data_member(project).get('unicef_supporting_sectors')
+        sector = self.get_data_member(project).get('unicef_supporting_sectors', [])
         qs = UNICEFSector.objects.filter(id__in=sector)
         return ", ".join(res.name for res in qs) if qs.count() else None
 

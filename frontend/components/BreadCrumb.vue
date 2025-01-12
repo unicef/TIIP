@@ -38,6 +38,7 @@ export default {
       'organisation-initiatives-id-published': this.$gettext('Published Initiative'),
       'organisation-initiatives-id-edit': this.$gettext('Edit Initiative'),
       'organisation-initiatives-id-stages': this.$gettext('Phases'),
+      'organisation-releases': this.$gettext('Release history'),
 
       // route exclutions
       exclude: [

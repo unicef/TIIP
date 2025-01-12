@@ -4,14 +4,12 @@
     <top-bar :auth="isAuthPage" />
     <action-bar v-if="showActionBar" />
     <nuxt />
-    <!-- <dha-footer /> -->
     <django-feedback />
   </div>
 </template>
 
 <script>
 import HeadMixin from '@/layouts/HeadMixin'
-import DhaFooter from '@/components/common/DhaFooter.vue'
 import TopBar from '@/components/common/TopBar.vue'
 import ActionBar from '@/components/common/ActionBar.vue'
 import DialogsContainer from '@/components/dialogs/DialogsContainer.vue'
@@ -19,7 +17,6 @@ import DjangoFeedback from '@/components/DjangoFeedback.vue'
 
 export default {
   components: {
-    DhaFooter,
     TopBar,
     ActionBar,
     DialogsContainer,
